@@ -1,0 +1,27 @@
+{
+  "name": "welcome-bot",
+  "version": "1.0.0",
+  "description": "a simple Discord bot which autmatically greets and assigns roles for new members",
+  "main": "src/index.js",
+  "dependencies": {
+    "discord.js": "^11.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emonadeo/welcome-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "Emonadeo",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Emonadeo/welcome-bot/issues"
+  },
+  "homepage": "https://github.com/Emonadeo/welcome-bot#readme"
+}
