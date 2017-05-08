@@ -7,11 +7,8 @@ function write(content) {
 	});
 }
 
-function read(callback) {
-	fs.readFile(dir, 'utf-8', function(err, file) {
-		if (err) throw err;
-		callback(file);
-	});
+function read() {
+	return fs.readFileSync(dir, 'utf-8');
 }
 
 function getArrayFromJSON(file) {
@@ -23,15 +20,10 @@ function getArrayFromJSON(file) {
 }
 
 function getRecord(id) {
-	read(function(file) {
-		var servers = getArrayFromJSON(file);
-		var obj;
-		for(i = 0; i < servers.length; i++) {
-			if(servers[i].id == id) {
-				obj = servers[i];
-			}
-		}
-		return obj;
+	var file = read();
+	var servers = getArrayFromJSON(file);
+	return servers.find(function(element) {
+		return element.id == id;
 	});
 }
 
@@ -39,53 +31,53 @@ function hasRecord(id) {
 	return getRecord(id) != undefined;
 }
 
-function setRecord(id, msg, role) {
+function setRecord(id, msg, role, channel) {
 	//Create File if it doesn't exist
 	fs.open(dir, 'w', function(err, data) {
 		if (err) throw err;
 	});
 	//Modify
-	read(function(file) {
-		var servers = getArrayFromJSON(file);
-		//Add guild to JSON
-		if(hasRecord(id)) {
-			for(i = 0; i < servers.length; i++) {
-				if(servers[i].id == id) {
-					servers[i] = {
-						id: id,
-						msg: msg,
-						role: role
-					};
-					break;
-				}
+	var file = read();
+	var servers = getArrayFromJSON(file);
+	//Add guild to JSON
+	if(hasRecord(id)) {
+		for(i = 0; i < servers.length; i++) {
+			if(servers[i].id == id) {
+				servers[i] = {
+					id: id,
+					msg: msg,
+					role: role,
+					channel: channel
+				};
+				break;
 			}
-		} else {
-			servers.push({
-				id: id,
-				msg: msg,
-				role: role
-			});
 		}
-		//Save JSON to file
-		write(JSON.stringify(servers));
-	});
+	} else {
+		servers.push({
+			id: id,
+			msg: msg,
+			role: role,
+			channel: channel
+		});
+	}
+	//Save JSON to file
+	write(JSON.stringify(servers));
 }
 
 function delRecord(id) {
-	read(function(file) {
-		var servers = getArrayFromJSON(file);
-		for(i = 0; i < servers.length; i++) {
-			if(servers[i].id == id) {
-				servers.splice(i, 1);
-			}
+	var file = read();
+	var servers = getArrayFromJSON(file);
+	for(i = 0; i < servers.length; i++) {
+		if(servers[i].id == id) {
+			servers.splice(i, 1);
 		}
-		write(JSON.stringify(servers));
-	});
+	}
+	write(JSON.stringify(servers));
 }
 
 //MODULE
 module.exports.add = function(id) {
-	setRecord(id, 'Welcome {user}', undefined);
+	setRecord(id, 'Welcome {user}', undefined, 'general');
 };
 
 module.exports.remove = function(id) {
