@@ -6,7 +6,11 @@ const bot = new discord.Client();
 const dir = 'servers.json';
 
 http.createServer(function(req, res) {
-	//Live Action
+	fs.readFile('docs/index.html', function(err, data) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+  });
 }).listen(process.env.PORT || 3000);
 
 //Setup
