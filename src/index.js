@@ -38,7 +38,9 @@ bot.on('guildMemberAdd', function(member) {
 	if(server.role != undefined) {
 		var role = member.guild.roles.find("name", server.role);
 		if(role != undefined) {
-			member.addRole();
+			member.addRole(role).catch(error => {
+				member.guild.owner.send("Error on **" + member.guild.name + "**: I dont have the permission to auto-assign the role you set. Make sure my role `Welcome Bot` is higher in the roles list than the one you want me to auto-assign");
+			});
 		}
 	}
 });
