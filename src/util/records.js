@@ -67,6 +67,9 @@ function delRecord(id) {
 	write(JSON.stringify(servers));
 }
 
+//Initialize
+fs.openSync(dir, 'a');
+
 //MODULE
 module.exports.add = function(id) {
 	setRecord(id, 'join', 'Welcome {user}');
