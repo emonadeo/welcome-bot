@@ -2,9 +2,7 @@ const fs = require('fs');
 const dir = 'servers.json';
 
 function write(content) {
-	fs.writeFile(dir, content, function(err) {
-		if (err) throw err;
-	});
+	fs.writeFileSync(dir, content);
 }
 
 function read() {
@@ -22,20 +20,19 @@ function getArrayFromJSON(file) {
 function getRecord(id) {
 	var file = read();
 	var servers = getArrayFromJSON(file);
-	return servers.find(function(element) {
-		return element.id == id;
-	});
+	for(i = 0; i < servers.length; i++) {
+		if(servers[i].id == id) {
+			return servers[i];
+		}
+	}
+	return undefined;
 }
 
 function hasRecord(id) {
 	return getRecord(id) != undefined;
 }
 
-function setRecord(id, msg, role, channel) {
-	//Create File if it doesn't exist
-	fs.open(dir, 'w', function(err, data) {
-		if (err) throw err;
-	});
+function setRecord(id, property, value) {
 	//Modify
 	var file = read();
 	var servers = getArrayFromJSON(file);
@@ -43,22 +40,17 @@ function setRecord(id, msg, role, channel) {
 	if(hasRecord(id)) {
 		for(i = 0; i < servers.length; i++) {
 			if(servers[i].id == id) {
-				servers[i] = {
-					id: id,
-					msg: msg,
-					role: role,
-					channel: channel
-				};
+				var s = servers[i];
+				s[property] = value;
+				servers[i] = s;
 				break;
 			}
 		}
 	} else {
 		servers.push({
-			id: id,
-			msg: msg,
-			role: role,
-			channel: channel
+			id: id
 		});
+		servers[servers.length - 1][property] = value;
 	}
 	//Save JSON to file
 	write(JSON.stringify(servers));
@@ -77,7 +69,8 @@ function delRecord(id) {
 
 //MODULE
 module.exports.add = function(id) {
-	setRecord(id, 'Welcome {user}', undefined, 'general');
+	setRecord(id, 'join', 'Welcome {user}');
+	setRecord(id, 'channel', 'general');
 };
 
 module.exports.remove = function(id) {
@@ -90,4 +83,8 @@ module.exports.get = function(id) {
 
 module.exports.has = function(id) {
 	return hasRecord(id);
+}
+
+module.exports.put = function(id, property, value) {
+	setRecord(id, property, value);
 }

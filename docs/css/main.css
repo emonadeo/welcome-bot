@@ -102,13 +102,17 @@ article:last-of-type {
 }
 
 .docs {
-	background-color: rgba(240, 240, 240, 0.5);
-	padding: 8px;
+	border-collapse: collapse;
 }
 
 .docs tr td {
-	border-bottom: 1px solid #eaecef;
-	padding: 8px 8px 8px 0;
+	border: 1px solid #dfe2e5;
+	padding: 6px 13px;
+}
+
+.docs thead {
+	text-align: center;
+	font-weight: bold;
 }
 
 .tile {
@@ -175,6 +179,8 @@ code {
 	margin: 0;
 	font-size: 85%;
 	background-color: rgba(27,31,35,0.05);
+	box-sizing: border-box;
+	line-height: 1.65;
 }
 
 dis {

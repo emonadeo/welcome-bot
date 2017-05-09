@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const express = require('express');
 const records = require('./util/records');
+const cmd = require('./util/executor');
 const discord = require('discord.js');
 
 const bot = new discord.Client();
@@ -30,8 +31,8 @@ bot.on('guildDelete', function(guild) {
 
 bot.on('guildMemberAdd', function(member) {
 	var server = records.get(member.guild.id);
-	if(server.msg != undefined && server.channel != undefined) {
-		var msg = server.msg.replace('{user}', '<@' + member.id + '>');
+	if(server.join != undefined && server.channel != undefined) {
+		var msg = server.join.replace('{user}', '<@' + member.id + '>');
 		member.guild.channels.find("name", server.channel).send(msg);
 	}
 	if(server.role != undefined) {
@@ -41,5 +42,7 @@ bot.on('guildMemberAdd', function(member) {
 		}
 	}
 });
+
+bot.on('message', msg => {cmd.on(msg);});
 
 bot.login('MzEwODc0MzMwMzI4MjAzMjY1.C_ETyg.LKTPz-GG1s3sStXJbwDagAE27nc');
