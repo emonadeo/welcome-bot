@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Discord Welcome Bot</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="res/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+	<header>
+		<div class="alpha wrapper">
+			<span>
+				This is still in ALPHA.
+			</span>
+			<div>
+				Help me improving by suggesting Features and reporting Bugs.
+			</div>
+		</div>
+		<div class="welcome">
+			<img class="logo" src="res/logo.svg" />
+			<span class="blurb">Meet and greet Welcome Bot.</span>
+			<span class="blurb-secondary">It literally does the same thing for your Discord server</span>
+			<div class="actions">
+				<a href="https://discordapp.com/oauth2/authorize?client_id=310874330328203265&scope=bot">Add to Discord</a>
+				<a href="https://github.com/Emonadeo/welcome-bot/issues/new">Suggest Features</a>
+			</div>
+		</div>
+		<div class="nav wrapper">
+			<a href="#about">About</a>
+			<a href="#start">Getting Started</a>
+			<a href="#config">Configure</a>
+			<div class="filler"></div>
+			<a href="https://github.com/Emonadeo/welcome-bot"><img src="res/social/github.svg" /></a>
+		</div>
+	</header>
+	<div class="content">
+		<article id="about">
+			<div class="tile">
+				<h1>About</h1>
+				<p>
+					<b>Welcome Bot</b> is aimed at encouraging people to get to know each other better and more quickly but also serves as some form of Butler and lets certain tasks be delegatable.
+				</p>
+				<h2>So, what gives?</h2>
+				<p>
+					The first impression is always the most important one. Nobody likes to join a Discord Server and gets ignored right away, which is where <b>Welcome Bot</b> comes in handy. It automatically greets the new Discord member with a configurable message. Not only is this a friendly gesture but also informs everyone of the new member so they don't miss out on him.
+				</p>
+				<h2>But wait - there is more!</h2>
+				<p>
+					One thing some people miss is the ability to edit the	<dis>@everyone</dis> group. <b>Welcome Bot</b> works around that problem by automatically assigning a Role of your choice when a User joins the party.
+				</p>
+			</div>
+		</article>
+		<article id="start">
+			<div class="tile">
+				<h1>Getting Started</h1>
+				<p>
+					Setting it up is simple and straight forward. Just click the very obvious button.<br />
+				</p>
+				<h2>Make it more personal</h2>
+				<p>
+					As of right now the Configuration works via Commands in Discord. However we are planning to shift that to a more simple Web-Interface.
+				</p>
+				<p>
+					You can change the Join-Message whenever you like.<br />
+					Type the command <code>!wbot join 'Your message'</code> in any text-channel to change it.	To address the user just type <code>{user}</code> anywhere in your message. It automatically replaces it in practice.	Keep in mind, you either have to have the <dis>Manage Server</dis> permission or be the owner of the Discord server.
+				</p>
+				<p>
+					Same goes for Auto-Role. By default no Auto-Role is assigned.<br />
+					Change it with <code>!wbot role 'Role'</code>
+				</p>
+			</div>
+		</article>
+		<article id="config">
+			<div class="tile">
+				<h1>Configure</h1>
+				<p>
+					Here is a better overview of currently all available commands. The usage is <code>!wbot 'command'</code>
+				</p>
+				<table class="docs">
+					<tr>
+						<td><code>join 'text'</code></td>
+						<td>Modify the Join-Message for new members</td>
+						<td><code>{user}</code>: Used to mention the new User</td>
+					</tr>
+					<tr>
+						<td><code>role ['role']</code></td>
+						<td>Change the Auto-Role, new members immediatly receive on joining.<br />If no role is defined, Auto-Role will be disabled</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</article>
+	</div>
+</body>
+
+</html>

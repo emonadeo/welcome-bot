@@ -1,13 +1,23 @@
 const http = require('http');
-const records = require('./util/records')
+const fs = require('fs');
+const express = require('express');
+const records = require('./util/records');
 const discord = require('discord.js');
 
 const bot = new discord.Client();
 const dir = 'servers.json';
 
-http.createServer(function(req, res) {
-	//Live Action
-}).listen(process.env.PORT || 3000);
+var app = express();
+
+app.get('/', function(req, res) {
+	fs.readFile(__dirname + '/../docs/index.html', function(err, data) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+  });
+});
+app.listen(process.env.PORT || 3000);
+app.use(express.static('docs'));
 
 //Setup
 bot.on('guildCreate', function(guild) {
@@ -25,7 +35,10 @@ bot.on('guildMemberAdd', function(member) {
 		member.guild.channels.find("name", server.channel).send(msg);
 	}
 	if(server.role != undefined) {
-		member.addRole(member.guild.roles.find("name", server.role));
+		var role = member.guild.roles.find("name", server.role);
+		if(role != undefined) {
+			member.addRole();
+		}
 	}
 });
 
