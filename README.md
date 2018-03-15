@@ -1,3 +1,5 @@
+> This Project is discontinued. Little did I know when I created that bot and it means I did a few crucial mistakes. While the bot itself works completely fine, it's easily hackable and thus not recommended to install on a server. Discord also now has an official feature to greet new members, so half of the function of this bot got outdated.
+
 ## About
 **Welcome Bot** is aimed at encouraging people to get to know each other better and more quickly but also serves as some form of Butler and lets certain tasks be delegatable.
 ### So, what gives?
